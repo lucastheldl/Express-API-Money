@@ -1,7 +1,10 @@
 import express from "express";
+import {
+  getTransactionsController,
+  createTransactionController,
+} from "../controllers/TransactionsController";
 
 export const router = express();
 
-router.get("/home", (req, res) => {
-  res.status(200).send({ hello: "hello" });
-});
+router.get("/transactions", getTransactionsController);
+router.post("/transactions", createTransactionController);

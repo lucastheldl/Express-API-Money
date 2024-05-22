@@ -1,4 +1,4 @@
-import express from "express";
+import express, { request } from "express";
 import cors from "cors";
 import { connectToDb } from "./database/connectDB";
 import { router } from "./routes/router";
@@ -6,9 +6,9 @@ import { router } from "./routes/router";
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 
-app.use(cors({ credentials: true, origin: "http://localhost:3333" }));
+app.use(cors({ origin: "null" }));
 
-app.use(express.json);
+app.use(express.json());
 connectToDb();
 
 app.use(router);
