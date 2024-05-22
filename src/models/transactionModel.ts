@@ -32,8 +32,19 @@ export const transactionModel = mongoose.model(
 );
 
 export async function createTransaction(transaction: Transaction) {
-  return await transactionModel.create(transaction);
+  try {
+    return await transactionModel.create(transaction);
+  } catch (error: any) {
+    console.error(error.message);
+  }
 }
-export async function getTransactions() {
-  return await transactionModel.find();
+export async function getTransactions(q?: string) {
+  try {
+    if (q) {
+      return await transactionModel.find({ description: new RegExp(q, "i") });
+    }
+    return await transactionModel.find();
+  } catch (error: any) {
+    console.error(error.message);
+  }
 }
