@@ -21,3 +21,11 @@ const userSchema = new mongoose.Schema({
 });
 
 export const UserModel = mongoose.model("User", userSchema);
+
+export async function registerUser(user) {
+  try {
+    return await UserModel.create(user);
+  } catch (error: any) {
+    console.error(error.message);
+  }
+}
