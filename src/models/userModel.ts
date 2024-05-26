@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import { compare, genSalt, hash } from "bcryptjs";
+import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 type User = {
   firstName: string;
@@ -42,8 +44,19 @@ export async function registerUser(user: User) {
     const passwordHash = await hash(user.password, salt);
 
     user.password = passwordHash;
+    const secret = process.env.JWT_SECRET as string;
+    const token = jwt.sign(
+      {
+        sub: user.email,
+      },
+      secret,
+      {
+        expiresIn: "7 days",
+      }
+    );
 
-    return await UserModel.create(user);
+    await UserModel.create(user);
+    return { token };
   } catch (error: any) {
     console.error(error.message);
     throw new Error("Error registering user");
@@ -58,7 +71,18 @@ export async function loginUser(user: UserLogin) {
     if (!(await compare(user.password, userWithEmail.password))) {
       throw new Error("Invalid email or password");
     }
-    return userWithEmail;
+    const secret = process.env.JWT_SECRET as string;
+    const token = jwt.sign(
+      {
+        sub: user.email,
+      },
+      secret,
+      {
+        expiresIn: "7 days",
+      }
+    );
+
+    return { token };
   } catch (error: any) {
     console.error(error.message);
     throw new Error("Error login user");
