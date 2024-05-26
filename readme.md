@@ -4,6 +4,8 @@
 
 [ ] Use jwt to persist user session
 
+[x] must encrypt the user password
+
 [x] create new transactions
 
 [ ] list your transactions

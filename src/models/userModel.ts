@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { compare, genSalt, hash } from "bcryptjs";
 
 type User = {
   firstName: string;
@@ -36,6 +37,12 @@ export async function registerUser(user: User) {
     if (userWithSameEmail) {
       throw new Error("Email already in use");
     }
+
+    const salt = await genSalt();
+    const passwordHash = await hash(user.password, salt);
+
+    user.password = passwordHash;
+
     return await UserModel.create(user);
   } catch (error: any) {
     console.error(error.message);
@@ -48,7 +55,7 @@ export async function loginUser(user: UserLogin) {
     if (!userWithEmail) {
       throw new Error("User dont exists");
     }
-    if (userWithEmail.password != user.password) {
+    if (!(await compare(user.password, userWithEmail.password))) {
       throw new Error("Invalid email or password");
     }
     return userWithEmail;
