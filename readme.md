@@ -1,6 +1,6 @@
 [x] Register users
 
-[ ] Login user
+[x] Login user
 
 [ ] Use jwt to persist user session
 

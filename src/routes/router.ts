@@ -5,8 +5,14 @@ import {
 } from "../controllers/TransactionsController";
 
 import { AuthGuard } from "../middlewares/AuthGuard";
-import { RegisterUserController } from "../controllers/UserController";
-import { UserRegisterValidation } from "../middlewares/UserValidation";
+import {
+  LoginUserController,
+  RegisterUserController,
+} from "../controllers/UserController";
+import {
+  UserLoginValidation,
+  UserRegisterValidation,
+} from "../middlewares/UserValidation";
 
 export const router = express();
 
@@ -19,3 +25,4 @@ router.post(
   UserRegisterValidation,
   RegisterUserController
 );
+router.post("/auth/login", AuthGuard, UserLoginValidation, LoginUserController);
