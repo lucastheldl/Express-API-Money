@@ -7,8 +7,13 @@ import {
 
 export async function getTransactionsController(req: Request, res: Response) {
   const { id } = req.params;
-  const transactions = await getTransactions(id);
-  return res.status(200).json(transactions);
+  try {
+    const transactions = await getTransactions(id);
+    return res.status(200).json(transactions);
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(500).send();
+  }
 }
 export const createTransactionController = async (
   req: Request,
@@ -23,9 +28,13 @@ export const createTransactionController = async (
     category,
     userId,
   };
-  await createTransaction(newTransaction);
-
-  return res.status(201).json({ newTransaction });
+  try {
+    await createTransaction(newTransaction);
+    return res.status(201).json({ newTransaction });
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(500).send();
+  }
 };
 
 export async function deleteTransactionController(req: Request, res: Response) {
