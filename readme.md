@@ -2,12 +2,12 @@
 
 [x] Login user
 
-[ ] Use jwt to persist user session
+[x] Use jwt to persist user session
 
-[x] must encrypt the user password
+[x] Must encrypt the user password
 
-[x] create new transactions
+[x] Create new transactions
 
-[ ] list your transactions
+[ ] List your transactions
 
 [ ] Delete transaction

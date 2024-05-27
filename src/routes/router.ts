@@ -16,7 +16,7 @@ import {
 
 export const router = express();
 
-router.get("/transactions", AuthGuard, getTransactionsController);
+router.get("/transactions/:id", AuthGuard, getTransactionsController);
 router.post("/transactions", AuthGuard, createTransactionController);
 
 router.post(

@@ -55,8 +55,8 @@ export async function registerUser(user: User) {
       }
     );
 
-    await UserModel.create(user);
-    return { token };
+    const createdUser = await UserModel.create(user);
+    return { token, userId: createdUser._id };
   } catch (error: any) {
     console.error(error.message);
     throw new Error("Error registering user");

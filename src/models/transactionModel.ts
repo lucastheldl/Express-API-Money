@@ -5,6 +5,7 @@ interface Transaction {
   type: string;
   valor: number;
   category: String;
+  userId: String;
 }
 const transactionSchema = new mongoose.Schema({
   description: {
@@ -24,6 +25,10 @@ const transactionSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  userId: {
+    type: String,
+    required: true,
+  },
 });
 
 export const transactionModel = mongoose.model(
@@ -38,12 +43,15 @@ export async function createTransaction(transaction: Transaction) {
     console.error(error.message);
   }
 }
-export async function getTransactions(q?: string) {
+export async function getTransactions(id: string, q?: string) {
   try {
     if (q) {
-      return await transactionModel.find({ description: new RegExp(q, "i") });
+      return await transactionModel.findOne({
+        description: new RegExp(q, "i"),
+        userId: id,
+      });
     }
-    return await transactionModel.find();
+    return await transactionModel.find({ userId: id });
   } catch (error: any) {
     console.error(error.message);
   }
