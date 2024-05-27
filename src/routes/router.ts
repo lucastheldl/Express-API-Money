@@ -2,6 +2,7 @@ import express from "express";
 import {
   getTransactionsController,
   createTransactionController,
+  deleteTransactionController,
 } from "../controllers/TransactionsController";
 
 import { AuthGuard } from "../middlewares/AuthGuard";
@@ -18,6 +19,7 @@ export const router = express();
 
 router.get("/transactions/:id", AuthGuard, getTransactionsController);
 router.post("/transactions", AuthGuard, createTransactionController);
+router.delete("/transactions/:id", AuthGuard, deleteTransactionController);
 
 router.post(
   "/auth/register",

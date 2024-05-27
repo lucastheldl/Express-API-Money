@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { createTransaction, getTransactions } from "../models/transactionModel";
+import {
+  createTransaction,
+  deleteTransaction,
+  getTransactions,
+} from "../models/transactionModel";
 
 export async function getTransactionsController(req: Request, res: Response) {
   const { id } = req.params;
@@ -23,3 +27,15 @@ export const createTransactionController = async (
 
   return res.status(201).json({ newTransaction });
 };
+
+export async function deleteTransactionController(req: Request, res: Response) {
+  const { id } = req.params;
+
+  try {
+    await deleteTransaction(id);
+    return res.status(200).send();
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(500).send();
+  }
+}

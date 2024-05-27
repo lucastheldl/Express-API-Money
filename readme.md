@@ -8,6 +8,8 @@
 
 [x] Create new transactions
 
-[ ] List your transactions
+[x] List your transactions
 
-[ ] Delete transaction
+[x] Search specific transactions
+
+[x] Delete transaction

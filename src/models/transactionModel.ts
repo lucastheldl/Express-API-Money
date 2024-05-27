@@ -56,3 +56,10 @@ export async function getTransactions(id: string, q?: string) {
     console.error(error.message);
   }
 }
+export async function deleteTransaction(id: string) {
+  try {
+    return await transactionModel.deleteOne({ _id: id });
+  } catch (error: any) {
+    console.error(error.message);
+  }
+}
