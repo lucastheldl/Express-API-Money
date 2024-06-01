@@ -35,5 +35,4 @@ export async function AuthGuard(
   } catch (error) {
     res.status(401).json({ errors: ["Token inválido"] });
   }
-  next();
 }

@@ -21,10 +21,5 @@ router.get("/transactions/:id", AuthGuard, getTransactionsController);
 router.post("/transactions", AuthGuard, createTransactionController);
 router.delete("/transactions/:id", AuthGuard, deleteTransactionController);
 
-router.post(
-  "/auth/register",
-  AuthGuard,
-  UserRegisterValidation,
-  RegisterUserController
-);
-router.post("/auth/login", AuthGuard, UserLoginValidation, LoginUserController);
+router.post("/auth/register", UserRegisterValidation, RegisterUserController);
+router.post("/auth/login", UserLoginValidation, LoginUserController);

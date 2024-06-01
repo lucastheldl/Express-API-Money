@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { loginUser, registerUser } from "../models/userModel";
+import { RequestWithUser } from "../interfaces/requestWithUser";
 
-export async function RegisterUserController(req: Request, res: Response) {
+export async function RegisterUserController(
+  req: RequestWithUser,
+  res: Response
+) {
   const { firstName, lastName, email, password } = req.body;
   const user = { firstName, lastName, email, password };
 

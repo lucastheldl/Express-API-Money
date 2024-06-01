@@ -4,8 +4,12 @@ import {
   deleteTransaction,
   getTransactions,
 } from "../models/transactionModel";
+import { RequestWithUser } from "../interfaces/requestWithUser";
 
-export async function getTransactionsController(req: Request, res: Response) {
+export async function getTransactionsController(
+  req: RequestWithUser,
+  res: Response
+) {
   const { id } = req.params;
   try {
     const transactions = await getTransactions(id);
@@ -16,7 +20,7 @@ export async function getTransactionsController(req: Request, res: Response) {
   }
 }
 export const createTransactionController = async (
-  req: Request,
+  req: RequestWithUser,
   res: Response
 ) => {
   const { description, type, valor, category, userId } = req.body;
@@ -30,6 +34,7 @@ export const createTransactionController = async (
   };
   try {
     await createTransaction(newTransaction);
+    console.log(req.user);
     return res.status(201).json({ newTransaction });
   } catch (error: any) {
     console.error(error.message);
