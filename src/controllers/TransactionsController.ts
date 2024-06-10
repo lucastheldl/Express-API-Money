@@ -1,9 +1,5 @@
 import { Request, Response } from "express";
-import {
-  createTransaction,
-  deleteTransaction,
-  getTransactions,
-} from "../models/transactionModel";
+
 import { RequestWithUser } from "../interfaces/requestWithUser";
 
 export async function getTransactionsController(

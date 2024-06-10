@@ -1,5 +1,5 @@
 import { knex as knexSetup, Knex } from "knex";
-import { env } from "../../env";
+import { env } from "./env";
 import path from "path";
 
 export const config: Knex.Config = {

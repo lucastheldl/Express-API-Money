@@ -7,4 +7,11 @@ declare module "knex/types/tasks" {
     valor: number;
     userId: string;
   }
+  export interface User {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: number;
+  }
 }

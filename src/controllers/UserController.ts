@@ -1,6 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import { loginUser, registerUser } from "../models/userModel";
+import { Request, Response } from "express";
 import { RequestWithUser } from "../interfaces/requestWithUser";
+import { CreateUserService } from "../services/CreateUserService";
+import { InMemoryUserRepository } from "../repositories/in-memory/in-memory-user-repository";
 
 export async function RegisterUserController(
   req: RequestWithUser,
@@ -8,6 +9,8 @@ export async function RegisterUserController(
 ) {
   const { firstName, lastName, email, password } = req.body;
   const user = { firstName, lastName, email, password };
+  const userRepo = new InMemoryUserRepository();
+  const createUserService = new CreateUserService(userRepo);
 
   try {
     const { token, userId } = await registerUser(user);
