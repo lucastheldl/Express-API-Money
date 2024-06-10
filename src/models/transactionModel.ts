@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-
 interface Transaction {
   description: String;
   type: string;
@@ -7,7 +5,7 @@ interface Transaction {
   category: String;
   userId: String;
 }
-const transactionSchema = new mongoose.Schema({
+/* const transactionSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
@@ -34,7 +32,7 @@ const transactionSchema = new mongoose.Schema({
 export const transactionModel = mongoose.model(
   "Transaction",
   transactionSchema
-);
+); */
 
 export async function createTransaction(transaction: Transaction) {
   try {

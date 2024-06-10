@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { compare, genSalt, hash } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
@@ -11,7 +10,7 @@ type User = {
 };
 type UserLogin = Omit<User, "firstName" | "lastName">;
 
-const userSchema = new mongoose.Schema({
+/* const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,
@@ -31,7 +30,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-export const UserModel = mongoose.model("User", userSchema);
+export const UserModel = mongoose.model("User", userSchema); */
 
 export async function registerUser(user: User) {
   try {
