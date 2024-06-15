@@ -1,6 +1,6 @@
-import { User } from "knex/types/tasks";
+import { User } from "knex/types/Transaction";
 
 export interface UsersRepository {
-  create: (user: User) => Promise<User | null>;
+  create: (user: User) => void;
   findByEmail: (email: string) => Promise<User | null>;
 }

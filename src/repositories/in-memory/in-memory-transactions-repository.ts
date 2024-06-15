@@ -1,5 +1,5 @@
 import knex from "knex";
-import { Transaction } from "knex/types/tasks";
+import { Transaction } from "knex/types/Transaction";
 
 export class InMemoryTransactionsRepository {
   async getAll() {

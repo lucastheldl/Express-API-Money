@@ -1,4 +1,4 @@
-declare module "knex/types/tasks" {
+declare module "knex/types/Transaction" {
   export interface Transaction {
     id: string;
     description: string;

@@ -1,15 +1,20 @@
 import { User } from "knex/types/Transaction";
 import { UsersRepository } from "../repositories/user-repository";
 
-export class CreateUserService {
+export class GetUserByEmailService {
   constructor(private userRepository: UsersRepository) {
     this.userRepository = userRepository;
   }
 
-  async execute({ email, password, firstName, lastName }: User) {
-    const user = { email, password, firstName, lastName };
+  async execute(email: string) {
     try {
-      await this.userRepository.create(user);
+      const user = await this.userRepository.findByEmail(email);
+
+      if (!user) {
+        throw new Error("User dont exists");
+      }
+
+      return user;
     } catch (error: any) {
       console.error(error.message);
       throw new Error(error.message);

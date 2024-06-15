@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { RequestWithUser } from "../interfaces/requestWithUser";
 import { CreateUserService } from "../services/CreateUserService";
 import { InMemoryUserRepository } from "../repositories/in-memory/in-memory-user-repository";
+import { GetUserByEmailService } from "../services/GetUserByEmailService";
 
 export async function RegisterUserController(
   req: RequestWithUser,
@@ -13,8 +14,8 @@ export async function RegisterUserController(
   const createUserService = new CreateUserService(userRepo);
 
   try {
-    const { token, userId } = await registerUser(user);
-    return res.status(201).json({ token: token, userId });
+    const createdUser = await createUserService.execute(user);
+    return res.status(201).json({ createdUser: createdUser });
   } catch (error: any) {
     return res.status(409).json({ error: error.message });
   }
@@ -22,11 +23,13 @@ export async function RegisterUserController(
 export async function LoginUserController(req: Request, res: Response) {
   const { email, password } = req.body;
   const user = { email, password };
+  const userRepo = new InMemoryUserRepository();
+  const getUserService = new GetUserByEmailService(userRepo);
 
   try {
-    const { token } = await loginUser(user);
+    const loggedUser = await getUserService.execute(email);
 
-    return res.status(200).json({ token: token });
+    return res.status(200).json({ loggedUser: loggedUser });
   } catch (error: any) {
     return res.status(400).json({ error: error.message });
   }

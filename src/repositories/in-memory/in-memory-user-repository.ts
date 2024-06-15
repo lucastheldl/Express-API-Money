@@ -1,19 +1,14 @@
 import knex from "knex";
-import { User } from "knex/types/tasks";
+import { User } from "knex/types/Transaction";
 
 export class InMemoryUserRepository {
   async create(user: User) {
-    const createdUser = await knex("users").insert({
+    await knex("users").insert({
       user,
     });
-
-    if (!createdUser) {
-      return null;
-    }
-    return createdUser;
   }
   async findByEmail(email: string) {
-    const user = await knex("users").where(email, email);
+    const user = await knex("users").where(email, email).first();
 
     if (!user) {
       return null;
